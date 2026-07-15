@@ -1,5 +1,7 @@
 {
     "$schema": "https://openapi.vercel.sh/vercel.json",
+    "installCommand": "echo 'Skipping npm install - using pre-built assets'",
+    "buildCommand": "",
     "builds": [
         {
             "src": "/api/index.php",
