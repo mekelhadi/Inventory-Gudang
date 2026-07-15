@@ -7,42 +7,71 @@
   <style>
     @page {
       size: A4 portrait;
-      margin: 2cm;
+      margin: 1.8cm;
     }
 
     body {
       font-family: "Segoe UI", Arial, sans-serif;
-      background: #f4f6f8;
+      background: #fff;
       margin: 0;
       padding: 0;
       color: #222;
       font-size: 12px;
     }
 
-    /* ===== PAGE WRAPPER ===== */
     .page-wrapper {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 24px 28px;
-      box-shadow: 0 0 0 rgba(0,0,0,0);
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
     }
 
     /* ===== HEADER ===== */
-    h1 {
+    .header {
       text-align: center;
-      font-size: 18px;
+      border-bottom: 3px double #333;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+    .header-logo {
+      height: 65px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 4px;
+    }
+    .header h1 {
+      font-size: 20px;
+      margin: 0 0 4px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+    .header p {
+      margin: 2px 0;
+      color: #555;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .title-section {
+      text-align: center;
+      margin: 6px 0 14px;
+    }
+    .title-section h2 {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border: 2px solid #333;
+      display: inline-block;
+      padding: 5px 22px;
       margin: 0;
-      font-weight: 600;
-      letter-spacing: .3px;
     }
 
     .sub-title {
       text-align: center;
       font-size: 11.5px;
       color: #666;
-      margin-top: 6px;
-      margin-bottom: 18px;
+      margin-top: 4px;
+      margin-bottom: 14px;
     }
 
     /* ===== TABLE ===== */
@@ -50,7 +79,6 @@
       width: 100%;
       border-collapse: collapse;
       table-layout: fixed;
-      margin-top: 10px;
     }
 
     thead th {
@@ -80,23 +108,32 @@
       background: #fafafa;
     }
 
-    /* ===== FOOTER ===== */
-    .footer {
-      margin-top: 22px;
-      font-size: 11px;
+    /* ===== TTD ===== */
+    .ttd-wrapper {
+      margin-top: 30px;
       text-align: right;
+    }
+    .ttd-wrapper .ttd-city-date {
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .ttd-wrapper .ttd-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #000;
+      margin-top: 70px;
+    }
+    .ttd-wrapper .ttd-title {
+      font-size: 11px;
       color: #555;
+      margin-top: 2px;
     }
 
     /* ===== PRINT ===== */
     @media print {
       body {
         background: #fff;
-      }
-
-      .page-wrapper {
-        max-width: 100%;
-        padding: 0;
       }
 
       thead th {
@@ -108,11 +145,6 @@
         background: #fafafa !important;
       }
 
-      .footer {
-        position: fixed;
-        bottom: 14mm;
-        right: 20mm;
-      }
     }
   </style>
 </head>
@@ -121,7 +153,16 @@
 
   <div class="page-wrapper">
 
-    <h1>Laporan Barang Keluar</h1>
+    <div class="header">
+      <img src="data:image/jpg;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo_sinarmax.jpg'))) }}" class="header-logo">
+      <h1>INVENTARIS GUDANG SINARMAX</h1>
+      <p>Pergudangan Surya Grand Cisoka, Jl. Raya Cisoka No.03 Blok D, Cibugel, Kec. Cisoka, Kabupaten Tangerang, Banten 15730</p>
+      <p>Telp: 08111208007 | Email: sinarmaxx@gmail.com</p>
+    </div>
+
+    <div class="title-section">
+      <h2>Laporan Barang Keluar</h2>
+    </div>
 
     @if ($tanggalMulai && $tanggalSelesai)
       <div class="sub-title">
@@ -145,22 +186,27 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($data as $index => $item)
+        @forelse($data as $index => $item)
         <tr>
           <td>{{ $index + 1 }}</td>
-          <td>{{ $item->kode_transaksi }}</td>
-          <td>{{ $item->tanggal_keluar }}</td>
-          <td>{{ $item->nama_barang }}</td>
-          <td>{{ $item->jumlah_keluar }}</td>
-          <td>{{ $item->customer->customer }}</td>
+          <td>{{ $item->kode_transaksi ?? '-' }}</td>
+          <td>{{ $item->tanggal_keluar ?? '-' }}</td>
+          <td>{{ $item->nama_barang ?? '-' }}</td>
+          <td>{{ $item->jumlah_keluar ?? 0 }}</td>
+          <td>{{ $item->customer->customer ?? '-' }}</td>
         </tr>
-        @endforeach
+        @empty
+        <tr>
+          <td colspan="6" style="text-align:center;">Tidak ada data sesuai filter</td>
+        </tr>
+        @endforelse
       </tbody>
     </table>
 
-    <div class="footer">
-      Dicetak oleh: {{ auth()->user()->name }} <br>
-      Tanggal: {{ date('d-m-Y') }}
+    <div class="ttd-wrapper">
+      <div class="ttd-city-date">Tangerang, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}</div>
+      <div class="ttd-name">Muhamad Iqbal Said</div>
+      <div class="ttd-title">Direktur</div>
     </div>
 
   </div>

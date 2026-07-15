@@ -11,6 +11,8 @@ class BarangKeluar extends Model
 {
     use HasFactory, LogsActivity;
 
+    protected $appends = ['nama_barang'];
+
     protected $fillable = [
     'kode_transaksi',
     'tanggal_keluar',

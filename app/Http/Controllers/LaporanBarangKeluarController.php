@@ -42,6 +42,11 @@ class LaporanBarangKeluarController extends Controller
         return response()->json($query->get());
     }
 
+    public function show($id)
+    {
+        return redirect()->route('laporan-barang-keluar.index');
+    }
+
     public function printBarangKeluar(Request $request)
     {
         $query = BarangKeluar::with(['barang', 'customer']); // ✅ FIX
@@ -65,10 +70,15 @@ class LaporanBarangKeluarController extends Controller
 
         $data = $query->get();
 
-        return view('laporan-barang-keluar.print-barang-keluar', [
-            'data' => $data,
-            'tanggalMulai' => $request->tanggal_mulai,
-            'tanggalSelesai' => $request->tanggal_selesai
-        ]);
+        $tanggalMulai   = $request->tanggal_mulai;
+        $tanggalSelesai = $request->tanggal_selesai;
+
+        $dompdf = new Dompdf();
+        $html = view('laporan-barang-keluar.print-barang-keluar', compact('data', 'tanggalMulai', 'tanggalSelesai'))->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $dompdf->stream('laporan-barang-keluar.pdf', ['Attachment' => false]);
     }
 }

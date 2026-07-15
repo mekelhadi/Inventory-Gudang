@@ -77,13 +77,14 @@ body {
 }
 .ttd-section td {
   text-align: center;
-  padding: 10px 20px;
+  padding: 5px 20px;
 }
-.ttd-section .ttd-line {
-  margin-top: 50px;
-  border-top: 1px solid #333;
-  padding-top: 6px;
+.ttd-section .ttd-label {
   font-weight: 600;
+  padding-bottom: 10px;
+}
+.ttd-section .ttd-space {
+  height: 50px;
 }
 .footer {
   text-align: center;
@@ -151,20 +152,24 @@ body {
 
 <table class="ttd-section">
   <tr>
-    <td>Pengirim,</td>
-    <td>Penerima,</td>
-    <td>Mengetahui,</td>
+    <td class="ttd-label">Pengirim,</td>
+    <td class="ttd-label">Penerima,</td>
+    <td class="ttd-label">Mengetahui,</td>
   </tr>
   <tr>
-
-    <td class="ttd">( _________________ )</td>
-    <td class="ttd">( _________________ )</td>
-    <td class="ttd">( _________________ )</td>
+    <td class="ttd-space"></td>
+    <td class="ttd-space"></td>
+    <td class="ttd-space"></td>
+  </tr>
+  <tr>
+    <td>( _________________ )</td>
+    <td>( _________________ )</td>
+    <td>( _________________ )</td>
   </tr>
 </table>
 
 <div class="footer">
-  Dicetak pada {{ now()->isoFormat('D MMMM Y HH:mm') }} | Inventaris Gudang Sinarmax
+  Dicetak pada {{ \Carbon\Carbon::now('Asia/Jakarta')->isoFormat('D MMMM Y HH:mm') }} WIB | Inventaris Gudang Sinarmax
 </div>
 
 </body>

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Laporan Barang Masuk</title>
+
   <style>
     @page {
       size: A4 portrait;
@@ -10,149 +11,223 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
       color: #222;
       font-size: 12px;
-      background: #fff;
+    }
+
+    .page-wrapper {
+      max-width: 100%;
       margin: 0;
       padding: 0;
     }
 
     /* ===== HEADER ===== */
-    h1 {
+    .header {
       text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      color: #000;
-      margin-top: 8px;
-      margin-bottom: 2px;
+      border-bottom: 3px double #333;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+    .header-logo {
+      height: 65px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 4px;
+    }
+    .header h1 {
+      font-size: 20px;
+      margin: 0 0 4px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+    .header p {
+      margin: 2px 0;
+      color: #555;
+      font-size: 11px;
+      line-height: 1.5;
     }
 
-    p {
+    .title-section {
+      text-align: center;
+      margin: 6px 0 14px;
+    }
+    .title-section h2 {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border: 2px solid #333;
+      display: inline-block;
+      padding: 5px 22px;
+      margin: 0;
+    }
+
+    .sub-title {
       text-align: center;
       font-size: 11.5px;
-      color: #444;
-      margin: 0 0 10px 0;
+      color: #666;
+      margin-top: 4px;
+      margin-bottom: 14px;
     }
 
     /* ===== TABLE ===== */
     table {
       width: 100%;
       border-collapse: collapse;
-      border: 1px solid #ccc;
       table-layout: fixed;
     }
 
     thead th {
-      background-color: #f2f2f2;
-      font-weight: bold;
-      text-align: center;
+      background: #f2f4f7;
       font-size: 12px;
-      padding: 6px 4px;
-      border: 1px solid #ccc;
+      font-weight: 600;
+      text-align: center;
+      padding: 8px 6px;
+      border: 1px solid #ddd;
       color: #111;
     }
 
     tbody td {
-      border: 1px solid #ddd;
-      padding: 5px 6px;
+      border: 1px solid #e1e1e1;
+      padding: 7px 6px;
       font-size: 11.5px;
-      font-weight: normal;
-      color: #333;
-      vertical-align: top;
       text-align: center;
-    }
-
-    tbody td:nth-child(4) {
-      text-align: left;
-      padding-left: 6px;
-      width: 35%;
+      color: #333;
     }
 
     tbody tr:nth-child(even) {
-      background-color: #fafafa;
+      background: #fafafa;
     }
 
-    /* ===== FOOTER ===== */
-    .footer {
-      margin-top: 16px;
-      font-size: 11px;
+    /* ===== TTD ===== */
+    .ttd-wrapper {
+      margin-top: 30px;
       text-align: right;
+    }
+    .ttd-wrapper .ttd-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #000;
+      margin-top: 50px;
+    }
+    .ttd-wrapper .ttd-title {
+      font-size: 11px;
       color: #555;
+      margin-top: 2px;
+    }
+    .ttd-wrapper .ttd-line {
+      width: 200px;
+      border-top: 1px solid #333;
+      margin-left: auto;
+      margin-bottom: 6px;
+    }
+
+    /* ===== TTD ===== */
+    .ttd-wrapper {
+      margin-top: 30px;
+      text-align: right;
+    }
+    .ttd-wrapper .ttd-city-date {
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .ttd-wrapper .ttd-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #000;
+      margin-top: 70px;
+    }
+    .ttd-wrapper .ttd-title {
+      font-size: 11px;
+      color: #555;
+      margin-top: 2px;
     }
 
     /* ===== PRINT ===== */
     @media print {
       body {
-        margin: 0;
-        padding: 0;
+        background: #fff;
       }
 
       thead th {
-        background-color: #f2f2f2 !important;
+        background: #f2f4f7 !important;
         -webkit-print-color-adjust: exact;
       }
 
       tbody tr:nth-child(even) {
-        background-color: #f9f9f9 !important;
+        background: #fafafa !important;
       }
 
-      .footer {
-        position: fixed;
-        bottom: 12mm;
-        right: 20mm;
-      }
     }
   </style>
 </head>
 
 <body>
- <h1>Laporan Barang Masuk</h1>
 
-<p>
-    @if($tanggalMulai && $tanggalSelesai)
-        Rentang Tanggal : {{ $tanggalMulai }} - {{ $tanggalSelesai }}
+  <div class="page-wrapper">
+
+    <div class="header">
+      <img src="data:image/jpg;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo_sinarmax.jpg'))) }}" class="header-logo">
+      <h1>INVENTARIS GUDANG SINARMAX</h1>
+      <p>Pergudangan Surya Grand Cisoka, Jl. Raya Cisoka No.03 Blok D, Cibugel, Kec. Cisoka, Kabupaten Tangerang, Banten 15730</p>
+      <p>Telp: 08111208007 | Email: sinarmaxx@gmail.com</p>
+    </div>
+
+    <div class="title-section">
+      <h2>Laporan Barang Masuk</h2>
+    </div>
+
+    @if ($tanggalMulai && $tanggalSelesai)
+      <div class="sub-title">
+        Rentang Tanggal: {{ $tanggalMulai }} - {{ $tanggalSelesai }}
+      </div>
     @else
-        Rentang Tanggal : Semua
+      <div class="sub-title">
+        Rentang Tanggal: Semua
+      </div>
     @endif
-</p>
 
+    <table>
+      <thead>
+        <tr>
+          <th style="width:4%;">No</th>
+          <th style="width:16%;">Kode Transaksi</th>
+          <th style="width:11%;">Tanggal Masuk</th>
+          <th style="width:37%;">Nama Barang</th>
+          <th style="width:8%;">Jumlah Masuk</th>
+          <th style="width:24%;">Supplier</th>
+        </tr>
+      </thead>
+      <tbody>
+        @forelse($data as $index => $item)
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ $item->kode_transaksi }}</td>
+          <td>{{ $item->tanggal_masuk }}</td>
+          <td>{{ $item->nama_barang }}</td>
+          <td>{{ $item->jumlah_masuk }}</td>
+          <td>{{ $item->supplier->supplier ?? '-' }}</td>
+        </tr>
+        @empty
+        <tr>
+          <td colspan="6" style="text-align:center;">Tidak ada data sesuai filter</td>
+        </tr>
+        @endforelse
+      </tbody>
+    </table>
 
-  <table>
-    <thead>
-      <tr>
-        <th style="width:4%;">No</th>
-        <th style="width:16%;">Kode Transaksi</th>
-        <th style="width:11%;">Tanggal Masuk</th>
-        <th style="width:37%;">Nama Barang</th>
-        <th style="width:8%;">Jumlah Masuk</th>
-        <th style="width:24%;">Supplier</th>
-      </tr>
-    </thead>
-  <tbody>
-@forelse($data as $index => $item)
-<tr>
-    <td>{{ $index + 1 }}</td>
-    <td>{{ $item->kode_transaksi }}</td>
-    <td>{{ $item->tanggal_masuk }}</td>
-    <td>{{ $item->nama_barang }}</td>
-    <td>{{ $item->jumlah_masuk }}</td>
-    <td>{{ $item->supplier->supplier ?? '-' }}</td>
-</tr>
-@empty
-<tr>
-    <td colspan="6" style="text-align:center;">
-        Tidak ada data sesuai filter
-    </td>
-</tr>
-@endforelse
-</tbody>
+    <div class="ttd-wrapper">
+      <div class="ttd-city-date">Tangerang, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}</div>
+      <div class="ttd-name">Muhamad Iqbal Said</div>
+      <div class="ttd-title">Direktur</div>
+    </div>
 
-  </table>
-
-  <div class="footer">
-    Dicetak oleh: {{ auth()->user()->name }}<br>
-    Tanggal: {{ date('d-m-Y') }}
   </div>
+
 </body>
 </html>
