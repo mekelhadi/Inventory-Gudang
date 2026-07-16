@@ -12,4 +12,16 @@ if (!isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (!isset($_SERVER['HTTPS']) || 
     }
 }
 
+$certSources = [
+    __DIR__ . '/../cert/isrgrootx1.pem',
+    __DIR__ . '/../cert/tidb-bundle.pem',
+];
+foreach ($certSources as $src) {
+    if (file_exists($src) && is_readable($src)) {
+        @copy($src, '/tmp/tidb-ca.pem');
+        putenv('DB_SSL_CA=/tmp/tidb-ca.pem');
+        break;
+    }
+}
+
 require __DIR__ . '/../public/index.php';
