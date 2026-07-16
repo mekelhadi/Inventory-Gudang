@@ -585,9 +585,10 @@ $('body').on('click', '#button_hapus_barang', function () {
 
             $.ajax({
                 url: `/barang/${barang_id}`,
-                type: "DELETE",
-                headers: {
-                    'X-CSRF-TOKEN': token
+                type: "POST",
+                data: {
+                    _method: "DELETE",
+                    _token: token
                 },
                 success: function (response) {
 

@@ -309,9 +309,10 @@ function loadBarangKeluar() {
                 if (result.isConfirmed) {
                     $.ajax({
                         url: `/barang-keluar/${barangKeluar_id}`,
-                        type: "DELETE",
+                        type: "POST",
                         cache: false,
                         data: {
+                            "_method": "DELETE",
                             "_token": token
                         },
                         success: function(response) {

@@ -200,8 +200,9 @@ error: function(err) {
 
                 $.ajax({
                     url: `/customer/${id}`,
-                    type: "DELETE",
+                    type: "POST",
                     data: {
+                        _method: "DELETE",
                         _token: $('meta[name="csrf-token"]').attr('content')
                     },
 

@@ -312,9 +312,10 @@ $(document).off('click', '#update_supplier').on('click', '#update_supplier', fun
                 if (result.isConfirmed) {
                     $.ajax({
                         url: `/supplier/${supplier_id}`,
-                        type: "DELETE",
+                        type: "POST",
                         cache: false,
                         data: {
+                            "_method": "DELETE",
                             "_token": token
                         },
                         success: function(response) {

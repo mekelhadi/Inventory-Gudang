@@ -240,9 +240,10 @@ $('body').on('click', '#store_jenis_barang', function (e) {
                 if (result.isConfirmed) {
                     $.ajax({
                         url: `/jenis-barang/${jenis_id}`,
-                        type: "DELETE",
+                        type: "POST",
                         cache: false,
                         data: {
+                            "_method": "DELETE",
                             "_token": token
                         },
                         success: function(response) {

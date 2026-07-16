@@ -265,8 +265,9 @@ $(document).off('click', '#store_barangMasuk').on('click', '#store_barangMasuk',
 
             $.ajax({
                 url: `/barang-masuk/${id}`,
-                type: "DELETE",
+                type: "POST",
                 data: {
+                    _method: "DELETE",
                     _token: token
                 },
                 success: function (response) {

@@ -366,9 +366,10 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         url: `/data-pengguna/${pengguna_id}`,
-                        type: "DELETE",
+                        type: "POST",
                         cache: false,
                         data: {
+                            "_method": "DELETE",
                             "_token": token
                         },
                         success: function(response) {
