@@ -37,7 +37,7 @@
         }
     ],
     "env": {
-        "APP_NAME": "Inventory Gudang Sinarmax",
+        "APP_NAME": "Inventaris-Gudang",
         "APP_ENV": "production",
         "APP_DEBUG": "true",
         "APP_URL": "https://inventory-gudang-phi.vercel.app",
